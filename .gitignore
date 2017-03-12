@@ -1,0 +1,8 @@
+fw/working/
+fw/ip/*_generated/
+
+test/__pycache__/
+test/.cache/
+test/assets/
+
+test/report.*
