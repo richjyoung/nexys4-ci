@@ -10,10 +10,9 @@ pipeline {
         stage('Test') {
             steps {
                 dir('test/vunit') {
-                    sh 'pwd'
-                    sh 'ls'
-                    sh 'python3 run.py --gtkwave-fmt ghw'
+                    sh 'python3 run.py --gtkwave-fmt ghw --no-color -x unit_test.xml'
                 }
+                junit 'test/vunit/*.xml'
             }
         }
         stage('Implement') {
