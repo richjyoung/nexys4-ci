@@ -17,17 +17,26 @@ pipeline {
         }
         stage('Implement') {
             steps {
-                sh 'echo Implement stage'
+                dir('fw/working') {
+                    sh 'source /opt/Xilinx/Vivado/2016.4/settings.sh'
+                    sh 'vivado -mode tcl -source ../../scripts/build_fw.tcl -notrace'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                sh 'echo Deploy stage'
+                dir('fw/working') {
+                    sh 'source /opt/Xilinx/Vivado/2016.4/settings.sh'
+                    sh 'vivado -mode tcl -source ../../scripts/program_nexys.tcl -notrace'
+                }
             }
         }
         stage('System_Test') {
             steps {
-                sh 'echo System_Test stage'
+                dir('test/pytest') {
+                    sh 'pytest --junitxml=report.xml --html=report.html -v'
+                }
+                junit 'test/pytest/*.xml'
             }
         }
     }
