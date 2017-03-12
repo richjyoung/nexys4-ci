@@ -5,10 +5,7 @@ pipeline {
         stage('Compile') {
             steps {
                 dir('fw/working') {
-                    sh 'ghdl -i --work=IO ../src/IO/*.vhd'
-                    sh 'ghdl -i --work=NEXYS ../src/NEXYS/*.vhd'
-                    sh 'ghdl -i --work=UART ../src/UART/*.vhd'
-                    sh 'ghdl -i --work=xil_defaultlib ../src/xil_defaultlib/*.vhd'
+                    sh 'for i in ../src/*; do if [ -d "$i" ]; then ghdl -i --work=$(basename $i) $i/*.vhd; fi; done;'
                 }
             }
         }
@@ -23,14 +20,14 @@ pipeline {
         stage('Synthesis & PAR') {
             steps {
                 dir('fw/working') {
-                    sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh; vivado -mode tcl -source ../../scripts/build_fw.tcl -notrace'
+                    sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh; vivado -mode batch -source ../../scripts/build_fw.tcl -notrace'
                 }
             }
         }
         stage('Deploy') {
             steps {
                 dir('fw/working') {
-                    sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh; vivado -mode tcl -source ../../scripts/program_nexys.tcl -notrace'
+                    sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh; vivado -mode batch -source ../../scripts/program_nexys.tcl -notrace'
                 }
             }
         }
