@@ -8,7 +8,7 @@ entity io_metastability_filter is
     );
     port (
         clk             : in  std_logic;
-        reset           : in  std_logic;
+        reset           : in  std_logic
         async           : in  std_logic_vector(width_g-1 downto 0);
         filtered        : out std_logic_vector(width_g-1 downto 0)
     );
