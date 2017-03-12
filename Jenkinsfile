@@ -5,7 +5,7 @@ pipeline {
         stage('Syntax Check') {
             steps {
                 dir('fw/working') {
-                    sh 'for i in ../src/*; do if [ -d "$i" ]; then ghdl -s $i/*.vhd; fi; done;'
+                    sh 'for i in ../src/*; do if [ -d "$i" ]; then ghdl -i --work=$(basename $i) $i/*.vhd; fi; done;'
                 }
             }
         }
