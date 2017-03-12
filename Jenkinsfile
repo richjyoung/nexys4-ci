@@ -18,7 +18,7 @@ pipeline {
         stage('Implement') {
             steps {
                 dir('fw/working') {
-                    sh 'source /opt/Xilinx/Vivado/2016.4/settings.sh'
+                    sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh'
                     sh 'vivado -mode tcl -source ../../scripts/build_fw.tcl -notrace'
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 dir('fw/working') {
-                    sh 'source /opt/Xilinx/Vivado/2016.4/settings.sh'
+                    sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh'
                     sh 'vivado -mode tcl -source ../../scripts/program_nexys.tcl -notrace'
                 }
             }
