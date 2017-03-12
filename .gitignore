@@ -1,8 +1,10 @@
 fw/working/
 fw/ip/*_generated/
 
-test/__pycache__/
-test/.cache/
-test/assets/
+test/pytest/__pycache__/
+test/pytest/.cache/
+test/pytest/assets/
 
-test/report.*
+test/pytest/report.*
+
+test/vunit/vunit_out/
