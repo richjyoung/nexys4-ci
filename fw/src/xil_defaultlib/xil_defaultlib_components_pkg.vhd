@@ -8,11 +8,11 @@ package xil_defaultlib_components_pkg is
         port
         (-- Clock in ports
         -- Clock out ports
-        clk_out1          : out    std_logic;
-        -- Status and control signals
-        reset             : in     std_logic;
-        locked            : out    std_logic;
-        clk_in1           : in     std_logic
+            clk_out1          : out    std_logic;
+            -- Status and control signals
+            resetn            : in     std_logic;
+            locked            : out    std_logic;
+            clk_in1           : in     std_logic
         );
     end component;
 

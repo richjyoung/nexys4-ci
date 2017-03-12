@@ -41,13 +41,11 @@ architecture rtl of nexys_toplevel is
     -- Clock & Reset
     signal clk              : std_logic;
     signal nreset           : std_logic;
-    signal cpu_nreset       : std_logic;
     signal reset            : std_logic;
 
 begin
 
     reset           <= not nreset;
-    cpu_nreset      <= not cpu_reset;
 
     -- HMI
     hmi_in.sw       <= sw_filtered;
@@ -86,7 +84,7 @@ begin
     mmcm : clk_wiz_0
     port map (
         clk_in1         => clk_100mhz,
-        reset           => cpu_nreset,
+        resetn          => cpu_reset,
         clk_out1        => clk,
         locked          => nreset
     );
