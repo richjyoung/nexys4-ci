@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'cd test/vunit'
+                dir 'test/vunit'
                 sh 'python3 run.py --gtkwave-fmt ghw'
             }
         }
