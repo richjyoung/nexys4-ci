@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 -------------------------------------------------------------------------------
-package nexys_io_wrapper_pkg is
+package records is
 
     -- HMI Interface
     constant led_count_c    : integer := 16;
@@ -47,9 +47,9 @@ package nexys_io_wrapper_pkg is
         );
     end component;
 
-end package nexys_io_wrapper_pkg;
+end package records;
 -------------------------------------------------------------------------------
-package body nexys_io_wrapper_pkg is
+package body records is
 
     -- Reset LED Bus
     procedure reset_bus(signal hmi_out : out hmi_out_t) is
@@ -64,4 +64,4 @@ package body nexys_io_wrapper_pkg is
         uart_out.rts     <= '0';
     end reset_bus;
 
-end package body nexys_io_wrapper_pkg;
+end package body records;

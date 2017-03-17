@@ -1,10 +1,10 @@
 library vunit_lib;
 context vunit_lib.vunit_context;
-library IEEE, UART, NEXYS;
+library DESIGN, IEEE, UART, NEXYS;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use UART.uart_components_pkg.all;
-use NEXYS.nexys_io_wrapper_pkg.all;
+use DESIGN.records.all;
 -------------------------------------------------------------------------------
 entity uart_direct_loopback_tb is
     generic (runner_cfg : string);

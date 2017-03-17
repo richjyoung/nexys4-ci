@@ -1,8 +1,8 @@
-library IEEE, IO, NEXYS, XIL_DEFAULTLIB;
+library DESIGN, IEEE, IO, NEXYS, XIL_DEFAULTLIB;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use IO.io_components_pkg.all;
-use NEXYS.nexys_io_wrapper_pkg.all;
+use DESIGN.records.all;
 use XIL_DEFAULTLIB.xil_defaultlib_components_pkg.all;
 -------------------------------------------------------------------------------
 entity nexys_toplevel is

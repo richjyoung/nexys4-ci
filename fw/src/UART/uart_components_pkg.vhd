@@ -1,7 +1,7 @@
-library IEEE, NEXYS;
+library DESIGN, IEEE, NEXYS;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-use NEXYS.nexys_io_wrapper_pkg.all;
+use DESIGN.records.all;
 --------------------------------------------------------------------------------
 package uart_components_pkg is
 
