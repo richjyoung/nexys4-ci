@@ -1,4 +1,4 @@
-library DESIGN, IEEE, IO, NEXYS, XIL_DEFAULTLIB;
+library DESIGN, IEEE, IO, XIL_DEFAULTLIB;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use IO.io_components_pkg.all;

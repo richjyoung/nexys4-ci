@@ -1,4 +1,4 @@
-library DESIGN, IEEE, UART, NEXYS;
+library DESIGN, IEEE, UART;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use UART.uart_components_pkg.all;
