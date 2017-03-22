@@ -8,3 +8,4 @@ test/pytest/assets/
 test/pytest/report.*
 
 test/vunit/vunit_out/
+test/vunit/unit_test.xml
