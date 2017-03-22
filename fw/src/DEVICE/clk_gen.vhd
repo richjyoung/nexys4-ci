@@ -24,7 +24,7 @@ begin
     port map (
         clk_in1         => sys_clk,
         resetn          => sys_nreset,
-        clk_out1        => clk,
+        clk_out1        => clk_100m,
         locked          => nreset
     );
 
