@@ -1,7 +1,8 @@
-library DESIGN, IEEE, IO, XIL_DEFAULTLIB;
+library DESIGN, DEVICE, IEEE, IO, XIL_DEFAULTLIB;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use IO.io_components_pkg.all;
+use DEVICE.device_components_pkg.all;
 use DESIGN.records.all;
 use XIL_DEFAULTLIB.xil_defaultlib_components_pkg.all;
 -------------------------------------------------------------------------------
@@ -40,12 +41,9 @@ architecture rtl of nexys_toplevel is
 
     -- Clock & Reset
     signal clk              : std_logic;
-    signal nreset           : std_logic;
     signal reset            : std_logic;
 
 begin
-
-    reset           <= not nreset;
 
     -- HMI
     hmi_in.sw       <= sw_filtered;
@@ -81,12 +79,12 @@ begin
     -- Signal Conditioning
     ---------------------------------------------------------------------------
 
-    mmcm : clk_wiz_0
+    clk_reset : clk_gen
     port map (
-        clk_in1         => clk_100mhz,
-        resetn          => cpu_reset,
-        clk_out1        => clk,
-        locked          => nreset
+        sys_clk         => clk_100mhz,
+        sys_nreset      => cpu_reset,
+        clk_100m        => clk,
+        reset           => reset
     );
 
     sw_metastability_filter: io_metastability_filter
