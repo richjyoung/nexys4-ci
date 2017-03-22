@@ -10,7 +10,7 @@ entity nexys_io_wrapper is
         freq_g          : integer := 100e6
     );
     port (
-        clk             : in   std_logic;
+        clk             : in  std_logic;
         reset           : in  std_logic;
         hmi_in          : in  hmi_in_t;
         hmi_out         : out hmi_out_t;
