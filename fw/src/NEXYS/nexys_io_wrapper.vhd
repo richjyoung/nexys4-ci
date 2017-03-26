@@ -33,12 +33,20 @@ begin
         end if;
     end process;
 
-    uart_direct_lb: uart_slave_direct_loopback
+    uart_if: uart_slave_if
+    generic map (
+        loopback_g      => true
+    )
     port map (
-        clk         => clk,
-        reset       => reset,
-        uart_in     => uart_in,
-        uart_out    => uart_out
+        clk             => clk,
+        reset           => reset,
+        data_in         => X"00",
+        data_in_valid   => '0',
+        uart_in         => uart_in,
+        busy            => open,
+        data_out        => open,
+        data_out_valid  => open,
+        uart_out        => uart_out
     );
 
 end rtl;
