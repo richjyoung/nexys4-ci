@@ -22,6 +22,7 @@ pipeline {
                 dir('fw/working') {
                     sh 'source /opt/Xilinx/Vivado/2016.4/settings64.sh; vivado -mode batch -source ../../scripts/build_fw.tcl -notrace'
                 }
+                archiveArtifacts artifacts: 'fw/working/*.rpt'
             }
         }
         stage('Deploy') {
