@@ -1,7 +1,7 @@
 from serial import Serial
 
 def test_loopback():
-    ser = Serial('/dev/ttyUSB1', 9600, timeout=1)
+    ser = Serial('/dev/ttyUSB1', 115200, timeout=1)
     assert ser.is_open == True
 
     ser.write(b'hello')
