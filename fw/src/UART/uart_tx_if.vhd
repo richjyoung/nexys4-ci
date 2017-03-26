@@ -69,7 +69,7 @@ begin
             if reset = '1' then
                 tx_state                        <= idle;
                 lfsr                            <= (others => '0');
-                uart_out                        <= '0';
+                uart_out                        <= '1';
                 busy                            <= '0';
 
             else

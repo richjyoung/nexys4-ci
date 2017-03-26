@@ -84,6 +84,9 @@ begin
     end process tb_proc;
 
     slave_if: uart_slave_if
+    generic map (
+        loopback_g      => false
+    )
     port map (
         clk             => clk,
         reset           => reset,

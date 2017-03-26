@@ -45,24 +45,27 @@ begin
     data_out        <= data_out_int;
     data_out_valid  <= data_out_valid_int;
 
-    loopback_mode: if loopback_g generate
-
-        seq_logic: process (clk)
-        begin
-            if rising_edge(clk) then
-                if reset = '1' then
-                    valid_latch         <= '0';
-                else
-                    if busy_int = '0' then
-                        valid_latch     <= '0';
-                    end if;
+    seq_logic: process (clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                valid_latch         <= '0';
+            else
+                if busy_int = '0' then
+                    valid_latch     <= '0';
+                end if;
+                if loopback_g then
                     if data_out_valid_int = '1' then
+                        valid_latch     <= '1';
+                    end if;
+                else
+                    if data_in_valid = '1' then
                         valid_latch     <= '1';
                     end if;
                 end if;
             end if;
-        end process seq_logic;
-    end generate;
+        end if;
+    end process seq_logic;
 
     rx_if: uart_rx_if
     port map (
