@@ -31,8 +31,8 @@ architecture rtl of nexys_toplevel is
     -- Busses
     signal hmi_in           : hmi_in_t;
     signal hmi_out          : hmi_out_t;
-    signal uart_in          : uart_in_t;
-    signal uart_out         : uart_out_t;
+    signal uart_in          : uart_slave_in_t;
+    signal uart_out         : uart_slave_out_t;
 
     -- Metastability signals
     signal sw_filtered      : std_logic_vector(sw'range);
@@ -51,10 +51,10 @@ begin
 
     -- UART
     uart_in_async   <= uart_txd & uart_rts;
-    uart_in.rxd     <= uart_in_filtered(1);
-    uart_in.cts     <= uart_in_filtered(0);
-    uart_rxd        <= uart_out.txd;
-    uart_cts        <= uart_out.rts;
+    uart_in.txd     <= uart_in_filtered(1);
+    uart_in.rts     <= uart_in_filtered(0);
+    uart_rxd        <= uart_out.rxd;
+    uart_cts        <= uart_out.cts;
 
 
     ---------------------------------------------------------------------------

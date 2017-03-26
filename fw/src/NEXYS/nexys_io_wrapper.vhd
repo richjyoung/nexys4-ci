@@ -14,8 +14,8 @@ entity nexys_io_wrapper is
         reset           : in  std_logic;
         hmi_in          : in  hmi_in_t;
         hmi_out         : out hmi_out_t;
-        uart_in         : in  uart_in_t;
-        uart_out        : out uart_out_t
+        uart_in         : in  uart_slave_in_t;
+        uart_out        : out uart_slave_out_t
     );
 end nexys_io_wrapper;
 -------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ begin
         end if;
     end process;
 
-    uart_direct_lb: uart_direct_loopback
+    uart_direct_lb: uart_slave_direct_loopback
     port map (
         clk         => clk,
         reset       => reset,

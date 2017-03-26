@@ -19,17 +19,17 @@ package records is
     procedure reset_bus(signal hmi_out : out hmi_out_t);
 
     -- UART
-    type uart_out_t is record
-        txd     : std_logic;
-        rts     : std_logic;
-    end record uart_out_t;
-
-    type uart_in_t is record
+    type uart_slave_out_t is record
         rxd     : std_logic;
         cts     : std_logic;
-    end record uart_in_t;
+    end record uart_slave_out_t;
 
-    procedure reset_bus(signal uart_out : out uart_out_t);
+    type uart_slave_in_t is record
+        txd     : std_logic;
+        rts     : std_logic;
+    end record uart_slave_in_t;
+
+    procedure reset_bus(signal uart_out : out uart_slave_out_t);
 
     -- Component
     component nexys_io_wrapper is
@@ -42,8 +42,8 @@ package records is
             reset           : in  std_logic;
             hmi_in          : in  hmi_in_t;
             hmi_out         : out hmi_out_t;
-            uart_in         : in  uart_in_t;
-            uart_out        : out uart_out_t
+            uart_in         : in  uart_slave_in_t;
+            uart_out        : out uart_slave_out_t
         );
     end component;
 
@@ -58,10 +58,10 @@ package body records is
     end reset_bus;
 
     -- Reset UART output
-    procedure reset_bus(signal uart_out : out uart_out_t) is
+    procedure reset_bus(signal uart_out : out uart_slave_out_t) is
     begin
-        uart_out.txd     <= '1';
-        uart_out.rts     <= '0';
+        uart_out.rxd     <= '1';
+        uart_out.cts     <= '0';
     end reset_bus;
 
 end package body records;

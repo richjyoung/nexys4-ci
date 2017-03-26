@@ -16,7 +16,7 @@ architecture tb of uart_rx_if_tb is
 
     signal clk          : std_logic     := '1';
     signal reset        : std_logic;
-    signal uart_in      : uart_in_t;
+    signal uart_in      : std_logic;
     signal data         : std_logic_vector(7 downto 0);
     signal data_valid   : std_logic;
 
@@ -28,8 +28,7 @@ begin
         test_runner_setup(runner, runner_cfg);
 
         reset           <= '1';
-        uart_in.rxd     <= '1';
-        uart_in.cts     <= '0';
+        uart_in         <= '1';
         wait until rising_edge(clk);
         wait for 100 ns;
         reset           <= '0';
@@ -38,21 +37,68 @@ begin
             if run("single_byte") then
 
                 -- Start
-                uart_in.rxd     <= '0';
-                uart_in.cts     <= '1';
+                uart_in         <= '0';
                 wait for sym_time;
                 
-                uart_in.rxd     <= '1'; wait for sym_time; -- Bit 0
-                uart_in.rxd     <= '0'; wait for sym_time; -- Bit 1
-                uart_in.rxd     <= '1'; wait for sym_time; -- Bit 2
-                uart_in.rxd     <= '0'; wait for sym_time; -- Bit 3
-                uart_in.rxd     <= '1'; wait for sym_time; -- Bit 4
-                uart_in.rxd     <= '0'; wait for sym_time; -- Bit 5
-                uart_in.rxd     <= '1'; wait for sym_time; -- Bit 6
-                uart_in.rxd     <= '0'; wait for sym_time; -- Bit 7
+                uart_in         <= '1'; wait for sym_time; -- Bit 0
+                uart_in         <= '0'; wait for sym_time; -- Bit 1
+                uart_in         <= '1'; wait for sym_time; -- Bit 2
+                uart_in         <= '0'; wait for sym_time; -- Bit 3
+                uart_in         <= '1'; wait for sym_time; -- Bit 4
+                uart_in         <= '0'; wait for sym_time; -- Bit 5
+                uart_in         <= '1'; wait for sym_time; -- Bit 6
+                uart_in         <= '0'; wait for sym_time; -- Bit 7
 
                 -- Idle
-                uart_in.rxd     <= '1';wait for sym_time*2;
+                uart_in         <= '1';
+
+                -- Check
+                wait until data_valid = '1';
+                assert data = x"AA";
+
+                wait for 100 ns;
+            elsif run("two_bytes") then
+
+                -- Start
+                uart_in         <= '0';
+                wait for sym_time;
+                
+                uart_in         <= '1'; wait for sym_time; -- Bit 0
+                uart_in         <= '0'; wait for sym_time; -- Bit 1
+                uart_in         <= '1'; wait for sym_time; -- Bit 2
+                uart_in         <= '0'; wait for sym_time; -- Bit 3
+                uart_in         <= '1'; wait for sym_time; -- Bit 4
+                uart_in         <= '0'; wait for sym_time; -- Bit 5
+                uart_in         <= '1'; wait for sym_time; -- Bit 6
+                uart_in         <= '0'; wait for sym_time; -- Bit 7
+
+                -- Idle
+                uart_in         <= '1';
+
+                -- Check
+                wait until data_valid = '1';
+                check(data = x"AA", "Data does not match expected value 0xAA", warning);
+                wait until data_valid = '0';
+
+                -- Start
+                uart_in         <= '0';
+                wait for sym_time;
+                
+                uart_in         <= '0'; wait for sym_time; -- Bit 0
+                uart_in         <= '1'; wait for sym_time; -- Bit 1
+                uart_in         <= '0'; wait for sym_time; -- Bit 2
+                uart_in         <= '1'; wait for sym_time; -- Bit 3
+                uart_in         <= '0'; wait for sym_time; -- Bit 4
+                uart_in         <= '1'; wait for sym_time; -- Bit 5
+                uart_in         <= '0'; wait for sym_time; -- Bit 6
+                uart_in         <= '1'; wait for sym_time; -- Bit 7
+
+                -- Idle
+                uart_in         <= '1';
+
+                -- Check
+                wait until data_valid = '1';
+                check(data = x"55", "Data does not match expected value 0x55", warning);
 
                 wait for 100 ns;
             end if;
