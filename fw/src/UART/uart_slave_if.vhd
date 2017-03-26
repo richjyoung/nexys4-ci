@@ -29,21 +29,16 @@ end uart_slave_if;
 -------------------------------------------------------------------------------
 architecture rtl of uart_slave_if is
 
+    -- Intermediate signals
     signal valid_latch          : std_logic;
-    signal busy_int             : std_logic;
-    signal data_out_valid_int   : std_logic;
     signal tx_valid_in          : std_logic;
     signal tx_data              : std_logic_vector(data_in'range);
-    signal data_out_int         : std_logic_vector(data_out'range);
 
 begin
 
     uart_out.cts    <= uart_in.rts;
-    tx_valid_in     <= valid_latch and (not busy_int);
-    tx_data         <= data_out_int when loopback_g else data_in;
-    busy            <= busy_int;
-    data_out        <= data_out_int;
-    data_out_valid  <= data_out_valid_int;
+    tx_valid_in     <= valid_latch and (not busy);
+    tx_data         <= data_out when loopback_g else data_in;
 
     seq_logic: process (clk)
     begin
@@ -51,14 +46,21 @@ begin
             if reset = '1' then
                 valid_latch         <= '0';
             else
-                if busy_int = '0' then
+
+                -- Clear valid_latch when not busy (or on subsequent clock)
+                -- Must be before set
+                if busy = '0' then
                     valid_latch     <= '0';
                 end if;
+
+                -- Set latch depending on loopbac
                 if loopback_g then
-                    if data_out_valid_int = '1' then
+                    -- Loopback mode: internal data out valid
+                    if data_out_valid = '1' then
                         valid_latch     <= '1';
                     end if;
                 else
+                    -- Normal mode: external data in valid
                     if data_in_valid = '1' then
                         valid_latch     <= '1';
                     end if;
@@ -72,8 +74,8 @@ begin
         clk         => clk,
         reset       => reset,
         uart_in     => uart_in.txd,
-        data        => data_out_int,
-        data_valid  => data_out_valid_int
+        data        => data_out,
+        data_valid  => data_out_valid
     );
 
     tx_if: uart_tx_if
@@ -83,7 +85,7 @@ begin
         data        => tx_data,
         data_valid  => tx_valid_in,
         uart_out    => uart_out.rxd,
-        busy        => busy_int
+        busy        => busy
     );
 
 end rtl;
