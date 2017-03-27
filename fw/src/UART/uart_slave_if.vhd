@@ -1,9 +1,9 @@
-library DESIGN, IEEE, LFSR, UART;
+library IEEE, LFSR, NEXYS, UART;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use IEEE.math_real.all;
 use LFSR.lfsr.all;
-use DESIGN.records.all;
+use NEXYS.nexys_top_level_pkg.all;
 use UART.uart_components_pkg.all;
 -------------------------------------------------------------------------------
 entity uart_slave_if is

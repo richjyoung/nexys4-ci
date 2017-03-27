@@ -1,10 +1,10 @@
 library vunit_lib;
 context vunit_lib.vunit_context;
-library DESIGN, IEEE, UART;
+library NEXYS, IEEE, UART;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use UART.uart_components_pkg.all;
-use DESIGN.records.all;
+use NEXYS.nexys_top_level_pkg.all;
 -------------------------------------------------------------------------------
 entity uart_slave_if_loopback_tb is
     generic (runner_cfg : string);

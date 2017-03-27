@@ -1,12 +1,11 @@
-library DESIGN, DEVICE, IEEE, IO, XIL_DEFAULTLIB;
+library NEXYS, DEVICE, IEEE, IO;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use IO.io_components_pkg.all;
 use DEVICE.device_components_pkg.all;
-use DESIGN.records.all;
-use XIL_DEFAULTLIB.xil_defaultlib_components_pkg.all;
+use NEXYS.nexys_top_level_pkg.all;
 -------------------------------------------------------------------------------
-entity nexys_toplevel is
+entity nexys4_rev_b is
     generic (
         testbench_g     : boolean := false;
         freq_g          : integer := 100e6
@@ -24,9 +23,9 @@ entity nexys_toplevel is
         uart_rxd        : out std_logic;
         uart_cts        : out std_logic
     );
-end nexys_toplevel;
+end nexys4_rev_b;
 -------------------------------------------------------------------------------
-architecture rtl of nexys_toplevel is
+architecture rtl of nexys4_rev_b is
 
     -- Busses
     signal hmi_in           : hmi_in_t;
@@ -58,9 +57,9 @@ begin
 
 
     ---------------------------------------------------------------------------
-    -- IO Wrapper
+    -- Design Top Level
     ---------------------------------------------------------------------------
-    io_wrapper: nexys_io_wrapper
+    top_level: nexys_top_level
     generic map (
         testbench_g     => testbench_g,
         freq_g          => freq_g

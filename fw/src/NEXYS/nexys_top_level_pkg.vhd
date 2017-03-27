@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 -------------------------------------------------------------------------------
-package records is
+package nexys_top_level_pkg is
 
     -- HMI Interface
     constant led_count_c    : integer := 16;
@@ -32,7 +32,7 @@ package records is
     procedure reset_bus(signal uart_out : out uart_slave_out_t);
 
     -- Component
-    component nexys_io_wrapper is
+    component nexys_top_level is
         generic (
             testbench_g     : boolean := false;
             freq_g          : integer := 100e6
@@ -45,11 +45,11 @@ package records is
             uart_in         : in  uart_slave_in_t;
             uart_out        : out uart_slave_out_t
         );
-    end component;
+    end component nexys_top_level;
 
-end package records;
+end package nexys_top_level_pkg;
 -------------------------------------------------------------------------------
-package body records is
+package body nexys_top_level_pkg is
 
     -- Reset LED Bus
     procedure reset_bus(signal hmi_out : out hmi_out_t) is
@@ -64,4 +64,4 @@ package body records is
         uart_out.cts     <= '0';
     end reset_bus;
 
-end package body records;
+end package body nexys_top_level_pkg;

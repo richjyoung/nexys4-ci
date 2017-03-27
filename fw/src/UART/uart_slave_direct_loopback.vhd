@@ -1,7 +1,7 @@
-library DESIGN, IEEE;
+library IEEE, NEXYS;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-use DESIGN.records.all;
+use NEXYS.nexys_top_level_pkg.all;
 -------------------------------------------------------------------------------
 entity uart_slave_direct_loopback is
     port (

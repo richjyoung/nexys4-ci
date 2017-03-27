@@ -1,9 +1,9 @@
-library DESIGN, IEEE, LFSR;
+library IEEE, LFSR, NEXYS;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use IEEE.math_real.all;
 use LFSR.lfsr.all;
-use DESIGN.records.all;
+use NEXYS.nexys_top_level_pkg.all;
 -------------------------------------------------------------------------------
 entity uart_rx_if is
     generic (

@@ -1,10 +1,10 @@
-library DESIGN, IEEE, UART;
+library NEXYS, IEEE, UART;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use UART.uart_components_pkg.all;
-use DESIGN.records.all;
+use NEXYS.nexys_top_level_pkg.all;
 -------------------------------------------------------------------------------
-entity nexys_io_wrapper is
+entity nexys_top_level is
     generic (
         testbench_g     : boolean := false;
         freq_g          : integer := 100e6
@@ -17,9 +17,9 @@ entity nexys_io_wrapper is
         uart_in         : in  uart_slave_in_t;
         uart_out        : out uart_slave_out_t
     );
-end nexys_io_wrapper;
+end nexys_top_level;
 -------------------------------------------------------------------------------
-architecture rtl of nexys_io_wrapper is
+architecture rtl of nexys_top_level is
 begin
 
     process (clk)
