@@ -34,10 +34,10 @@ set_property top $top [current_fileset]
 puts "\[+\] Synthesizing design..."
 synth_design -top $top -part $part -fsm_extraction auto -resource_sharing on
 write_edif -force "$top.edn"
-report_utilization -file "${top}_post_synth_util.rpt"
-report_utilization -hierarchical -file "${top}_post_synth_util_hier.rpt"
-report_timing -file "${top}_post_synth_timing.rpt"
-report_drc -file "${top}_post_synth_drc.rpt"
+report_utilization -file "${top}_post_synth_util.txt"
+report_utilization -hierarchical -file "${top}_post_synth_util_hier.txt"
+report_timing -file "${top}_post_synth_timing.txt"
+report_drc -file "${top}_post_synth_drc.txt"
 write_checkpoint -force "${top}_post_synth"
 
 puts "\[+\] Optimising design..."
@@ -47,10 +47,10 @@ place_design
 write_checkpoint -force "${top}_post_place"
 puts "\[+\] Routing design..."
 route_design
-report_timing_summary -file "${top}_post_route_timing.rpt"
-report_utilization -file "${top}_post_route_util.rpt"
-report_utilization -hierarchical -file "${top}_post_route_util_hier.rpt"
-report_drc -file "${top}_post_route_drc.rpt"
+report_timing_summary -file "${top}_post_route_timing.txt"
+report_utilization -file "${top}_post_route_util.txt"
+report_utilization -hierarchical -file "${top}_post_route_util_hier.txt"
+report_drc -file "${top}_post_route_drc.txt"
 set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
 set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
 puts "\[+\] Generating bitstream..."
