@@ -1,7 +1,8 @@
 set top "nexys4_rev_b"
 set part "xc7a100tcsg324-1"
+set commit [exec git rev-parse HEAD | head -c 8]
 
-puts "===== Building $top for device $part ====="
+puts "===== Building $top for device $part (commit: $commit) ====="
 puts "\[+\] Loading source files..."
 
 foreach {lib} [glob -tails -directory "../src" -type d *] {
@@ -54,6 +55,7 @@ report_drc -file "${top}_post_route_drc.txt"
 set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
 set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
 puts "\[+\] Generating bitstream..."
+set_property BITSTREAM.CONFIG.USR_ACCESS "0x$commit" [current_design]
 write_bitstream -force -file "$top.bit"
 write_checkpoint -force "${top}_post_route"
 file copy -force "vivado.log" "$top.log"
