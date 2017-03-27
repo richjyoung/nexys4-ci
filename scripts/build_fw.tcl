@@ -1,4 +1,4 @@
-set top "nexys_toplevel"
+set top "nexys4_rev_b"
 set part "xc7a100tcsg324-1"
 
 puts "===== Building $top for device $part ====="
@@ -25,8 +25,8 @@ foreach {xci} [glob -nocomplain -tails -directory "../ip" "*.xci"] {
 }
 
 puts "\[+\] Loading constraints..."
-puts "    \[-\] nexys_toplevel"
-read_xdc -ref nexys_toplevel ../constraints/nexys_toplevel.xdc
+puts "    \[-\] nexys4_rev_b"
+read_xdc -ref nexys4_rev_b ../constraints/nexys4_rev_b.xdc
 
 puts "\[+\] Setting top module to $top..."
 set_property top $top [current_fileset]

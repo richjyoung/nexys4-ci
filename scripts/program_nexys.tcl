@@ -5,7 +5,7 @@ set device [lindex [get_hw_devices xc7a100t_0] 0]
 current_hw_device $device
 refresh_hw_device -update_hw_probes false $device
 set_property PROBES.FILE {} $device
-set_property PROGRAM.FILE {nexys_toplevel.bit} $device
+set_property PROGRAM.FILE {nexys4_rev_b.bit} $device
 puts "\[+\] Programming device..."
 set done [get_property REGISTER.CONFIG_STATUS.BIT14_DONE_PIN [lindex [get_hw_devices xc7a100t_0] 0]]
 puts "    \[-\] DONE: $done"
