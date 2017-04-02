@@ -13,6 +13,16 @@ package device_components_pkg is
         );
     end component clk_gen;
 
+    component usr_access is
+        generic (
+            testbench_g         : boolean                           := false;
+            testbench_data_g    : std_logic_vector(31 downto 0)     := X"DEADBEEF"
+        );
+        port (
+            usr_access_data : out std_logic_vector(31 downto 0)
+        );
+    end component usr_access;
+
 end package device_components_pkg;
 --------------------------------------------------------------------------------
 package body device_components_pkg is
